@@ -1,0 +1,26 @@
+#  docker-compose -f docker-compose.yml up
+#  docker-compose -f docker-compose.yml down -v
+
+version: '3'
+services:
+
+  pg_master_1:
+    build: "./master"
+    ports:
+      - 5445:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PG_REP_USER=rep
+      - PG_REP_PASSWORD=123456
+  pg_slave_1:
+    build: "./slave"
+    ports:
+      - "5446:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PG_REP_PASSWORD=123456
+      - PG_REP_USER=rep
